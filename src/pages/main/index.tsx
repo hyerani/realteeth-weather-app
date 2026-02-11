@@ -1,7 +1,9 @@
+import { CurrentLocationWidget } from "@/widgets/current-location"
+
 export const MainPage = () => {
   return (
-    <div>
-      <div>MainPage</div>
+    <div className="container mx-auto p-4">
+      <CurrentLocationWidget />
     </div>
   )
 }
