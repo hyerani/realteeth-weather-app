@@ -1,4 +1,5 @@
 import { CurrentLocationWidget } from '@/widgets/current-location'
+import { FavoritesListWidget } from '@/widgets/favorites-list/ui/FavoritesListWidget'
 import { LocationSearchWidget } from '@/widgets/location-search/ui/LocationSearchWidget'
 
 /**
@@ -33,10 +34,9 @@ export const MainPage = () => {
           </div>
         </div>
 
-        {/* 즐겨찾기 목록 (향후 추가) */}
-        {/* <div className="mt-8">
-          <FavoritesList />
-        </div> */}
+        <div className="mt-8">
+          <FavoritesListWidget />
+        </div>
       </div>
     </div>
    </div>

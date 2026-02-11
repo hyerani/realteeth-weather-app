@@ -2,10 +2,13 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { getWeatherIconUrl } from '@/entities/weather'
 import { useWeatherByAddress } from '@/entities/weather/model/useWeatherQuery'
+import { AddFavoriteButton } from '@/features/add-favorite/ui/AddFavoriteButton'
+
 
 /**
  * 날씨 상세 페이지
- * 검색 결과에서 장소 선택 시 표시되는 페이지
+ * - 검색 결과에서 장소 선택 시
+ * - 즐겨찾기 카드 클릭 시
  */
 export const WeatherDetailPage = () => {
   const navigate = useNavigate()
@@ -79,6 +82,8 @@ export const WeatherDetailPage = () => {
           <ArrowLeft className="w-5 h-5" />
           <span>돌아가기</span>
         </button>
+
+        <AddFavoriteButton address={address} />
 
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
