@@ -82,7 +82,7 @@ export const SearchResultsList = ({
         장소를 찾았습니다
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
         {results.map((result) => (
           <SearchResultCard
             key={result.district.id}
