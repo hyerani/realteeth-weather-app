@@ -113,6 +113,49 @@ export const reverseGeocode = async (
 }
 
 /**
+ * OpenWeatherMap Geocoding API를 사용한 정지오코딩
+ * (주소 → 좌표 변환)
+ * 
+ * @param address 주소
+ * @returns Promise<Coordinates> 좌표
+ */
+export const geocodeAddress = async (
+  address: string
+): Promise<Coordinates> => {
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY
+
+  if (!API_KEY) {
+    throw new Error('API 키가 설정되지 않았습니다.')
+  }
+
+  try {
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(address)},KR&limit=1&appid=${API_KEY}`
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error('정지오코딩 요청 실패')
+    }
+
+    const data = await response.json()
+
+    if (!data || data.length === 0) {
+      throw new Error('해당 주소를 찾을 수 없습니다.')
+    }
+
+    return {
+      lat: data[0].lat,
+      lon: data[0].lon,
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('좌표 변환에 실패했습니다.')
+  }
+}
+
+
+/**
  * 현재 위치와 주소를 함께 가져오기
  * 
  * @returns Promise<{ coordinates: Coordinates; address: string }>

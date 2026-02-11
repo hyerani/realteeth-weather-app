@@ -1,4 +1,5 @@
 import { ENV } from '@/shared/config/env'
+import { geocodeAddress } from '@/entities/location/api/geolocationApi'
 import type {
   CurrentWeatherResponse,
   HourlyForecastResponse,
@@ -139,16 +140,65 @@ export const fetchWeatherData = async (
 }
 
 /**
- * 도시 이름으로 날씨 가져오기
- * @param cityName 도시 이름
- * @returns 현재 날씨 데이터
+ * 주소로 날씨 데이터 가져오기
+ * 
+ * @param address - 전체 주소
+ * @returns 가공된 날씨 데이터
  */
-export const fetchWeatherByCity = async (
-  cityName: string
-): Promise<CurrentWeatherResponse> => {
-  const url = buildUrl('weather', { q: cityName })
-  const response = await fetch(url)
-  return handleResponse<CurrentWeatherResponse>(response)
+export const fetchWeatherByAddress = async (
+  address: string
+): Promise<WeatherData> => {
+  try {
+    const coords = await geocodeAddress(address)
+
+    const [currentData, forecastData] = await Promise.all([
+      fetchCurrentWeather(coords.lat, coords.lon),
+      fetchHourlyForecast(coords.lat, coords.lon),
+    ])
+
+    const hourlyWeather: HourlyWeather[] = forecastData.list
+      .slice(0, 8)
+      .map((item) => ({
+        time: item.dt,
+        timeText: new Date(item.dt * 1000).toLocaleTimeString('ko-KR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        }),
+        temp: Math.round(item.main.temp),
+        description: item.weather[0]?.description || '',
+        icon: item.weather[0]?.icon || '',
+        pop: item.pop ? Math.round(item.pop * 100) : undefined,
+      }))
+
+    const weatherData: WeatherData = {
+      location: address,
+      coordinates: {
+        lat: coords.lat,
+        lon: coords.lon,
+      },
+      current: {
+        temp: Math.round(currentData.main.temp),
+        feelsLike: Math.round(currentData.main.feels_like),
+        tempMin: Math.round(currentData.main.temp_min),
+        tempMax: Math.round(currentData.main.temp_max),
+        humidity: currentData.main.humidity,
+        description: currentData.weather[0]?.description || '',
+        icon: currentData.weather[0]?.icon || '',
+        sunrise: currentData.sys.sunrise,
+        sunset: currentData.sys.sunset,
+      },
+      hourly: hourlyWeather,
+      timestamp: currentData.dt,
+    }
+
+    return weatherData
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(`날씨 정보를 가져오는데 실패했습니다 ${error.message}`)
+    }
+    throw new Error('날씨 정보를 가져오는데 실패했습니다.')
+  }
 }
 
 /**
