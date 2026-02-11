@@ -3,7 +3,7 @@ export {
   fetchCurrentWeather,
   fetchHourlyForecast,
   fetchWeatherData,
-  fetchWeatherByCity,
+  fetchWeatherByAddress,
   getWeatherIconUrl,
   isApiKeyValid,
 } from './api/weatherApi'

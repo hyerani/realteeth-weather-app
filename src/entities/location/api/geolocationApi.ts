@@ -113,6 +113,18 @@ export const reverseGeocode = async (
 }
 
 /**
+ * 주소 정규화 (도/시 이름 축약)
+ */
+const normalizeAddress = (address: string): string => {
+  let normalized = address
+  
+  normalized = normalized.replace(/특별자치도/g, '도')
+  normalized = normalized.replace(/특별자치시/g, '시')
+
+  return normalized
+}
+
+/**
  * OpenWeatherMap Geocoding API를 사용한 정지오코딩
  * (주소 → 좌표 변환)
  * 
@@ -128,24 +140,49 @@ export const geocodeAddress = async (
     throw new Error('API 키가 설정되지 않았습니다.')
   }
 
-  try {
-    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(address)},KR&limit=1&appid=${API_KEY}`
-    const response = await fetch(url)
+  const fetchCoords = async (query: string): Promise<Coordinates | null> => {
+    try {
+      const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)},KR&limit=1&appid=${API_KEY}`
+      const response = await fetch(url)
+      
+      if (!response.ok) return null
+      
+      const data = await response.json()
+      
+      if (!data || data.length === 0) return null
 
-    if (!response.ok) {
-      throw new Error('정지오코딩 요청 실패')
+      return {
+        lat: data[0].lat,
+        lon: data[0].lon,
+      }
+    } catch {
+      return null
+    }
+  }
+
+  try {
+    let coords = await fetchCoords(address)
+
+    if (!coords) {
+      const normalized = normalizeAddress(address)
+      if (normalized !== address) {
+        coords = await fetchCoords(normalized)
+      }
     }
 
-    const data = await response.json()
+    if (!coords && address.includes(' ')) {
+      const segments = address.split(' ').filter(s => s.trim().length > 0)
+      if (segments.length > 1) {
+        const lastSegment = segments[segments.length - 1]
+        coords = await fetchCoords(lastSegment)
+      }
+    }
 
-    if (!data || data.length === 0) {
+    if (!coords) {
       throw new Error('해당 주소를 찾을 수 없습니다.')
     }
 
-    return {
-      lat: data[0].lat,
-      lon: data[0].lon,
-    }
+    return coords
   } catch (error) {
     if (error instanceof Error) {
       throw error

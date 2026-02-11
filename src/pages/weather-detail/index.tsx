@@ -1,7 +1,1 @@
-export const WeatherDetailPage = () => {
-  return (
-    <div>
-      <div>WeatherDetailPage</div>
-    </div>
-  )
-}
+export { WeatherDetailPage } from './ui/WeatherDetailPage'
