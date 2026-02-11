@@ -6,16 +6,6 @@ import { GEOLOCATION_ERROR_MESSAGES, GeolocationErrorCode, type Coordinates, typ
  * 
  * @param options Geolocation 옵션
  * @returns Promise<GeolocationResult>
- * 
- * @example
- * ```ts
- * try {
- *   const position = await getCurrentPosition()
- *   console.log(position.coordinates) // { lat: 37.5665, lon: 126.9780 }
- * } catch (error) {
- *   console.error('위치 가져오기 실패:', error.message)
- * }
- * ```
  */
 export const getCurrentPosition = (
   options?: GeolocationOptions
@@ -58,16 +48,6 @@ export const getCurrentPosition = (
  * 위치 권한 상태 확인
  * 
  * @returns Promise<PermissionState> - 'granted', 'denied', 'prompt'
- * 
- * @example
- * ```ts
- * const permission = await checkGeolocationPermission()
- * if (permission === 'granted') {
- *   // 위치 정보 가져오기
- * } else if (permission === 'denied') {
- *   // 권한 거부 안내
- * 
- * ```
  */
 export const checkGeolocationPermission = async (): Promise<PermissionState> => {
   if (!navigator.permissions) {
@@ -99,12 +79,6 @@ export const isGeolocationAvailable = (): boolean => {
  * @param lat 위도
  * @param lon 경도
  * @returns Promise<string> 주소
- * 
- * @example
- * ```ts
- * const address = await reverseGeocode(37.5665, 126.9780)
- * console.log(address) // "Seoul"
- * ```
  */
 export const reverseGeocode = async (
   lat: number,
@@ -142,13 +116,6 @@ export const reverseGeocode = async (
  * 현재 위치와 주소를 함께 가져오기
  * 
  * @returns Promise<{ coordinates: Coordinates; address: string }>
- * 
- * @example
- * ```ts
- * const location = await getCurrentLocation()
- * console.log(location.coordinates) // { lat: 37.5665, lon: 126.9780 }
- * console.log(location.address) // "서울"
- * ```
  */
 export const getCurrentLocation = async (): Promise<{
   coordinates: Coordinates
