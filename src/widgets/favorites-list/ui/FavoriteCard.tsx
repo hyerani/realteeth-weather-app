@@ -12,11 +12,7 @@ interface FavoriteCardProps {
 }
 
 /**
- * 즐겨찾기 카드
- * - 현재 날씨 정보
- * - 최저/최고 기온
- * - 별칭 수정
- * - 삭제
+ * 즐겨찾기 카드 컴포넌트
  */
 export const FavoriteCard = ({ favorite, onClick }: FavoriteCardProps) => {
   const { removeFavorite } = useFavoriteStore()
@@ -113,12 +109,12 @@ export const FavoriteCard = ({ favorite, onClick }: FavoriteCardProps) => {
       >
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold text-gray-900 mb-1 truncate group-hover:text-blue-600 transition-colors">
+            <h3 className="text-lg font-bold text-gray-900 mb-1 break-words group-hover:text-blue-600 transition-colors">
               {favorite.displayName}
             </h3>
-            <p className="text-sm text-gray-500 flex items-center gap-1 truncate">
-              <MapPin className="w-3 h-3 flex-shrink-0" />
-              <span className="truncate">{favorite.address}</span>
+            <p className="text-sm text-gray-500 flex items-start gap-1">
+              <MapPin className="w-3 h-3 flex-shrink-0 mt-0.5" />
+              <span className="break-words flex-1">{favorite.address}</span>
             </p>
           </div>
           <img

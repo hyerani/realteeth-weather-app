@@ -84,11 +84,13 @@ export const WeatherDetailPage = () => {
         </button>
 
         <div className="mb-6">
-          <div className="flex items-center justify-between gap-2 md:gap-3 mb-2">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 truncate">
+          <div className="flex items-start justify-between gap-2 md:gap-3 mb-2">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 break-words flex-1">
               {address}
             </h1>
-            <AddFavoriteButton address={address} size="sm" />
+            <div className="flex-shrink-0 mt-1">
+              <AddFavoriteButton address={address} size="sm" />
+            </div>
           </div>
           <p className="text-gray-500">
             {new Date(weather.timestamp * 1000).toLocaleString('ko-KR')} 기준

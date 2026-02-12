@@ -3,6 +3,7 @@ import { useState } from 'react'
 import type { District } from '@/entities/location/model/districtTypes'
 import { highlightText } from '@/entities/location/lib/searchDistricts'
 import { useFavoriteStore } from '@/entities/favorite'
+import { cn } from '@/shared/lib/utils/cn'
 
 interface SearchResultCardProps {
   district: District
@@ -64,7 +65,7 @@ export const SearchResultCard = ({
                    rounded-lg hover:border-blue-500 hover:shadow-md 
                    transition-all duration-200 group"
       >
-        <div className="flex items-start gap-3">
+        <div className="flex items-center gap-3">
           <div className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full 
                           flex items-center justify-center group-hover:bg-blue-100 
                           transition-colors">
@@ -85,9 +86,10 @@ export const SearchResultCard = ({
 
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span
-                className={`px-2 py-0.5 rounded-full font-medium ${
-                  levelBadgeColors[district.level]
-                }`}
+                className={cn(
+                  "px-2 py-0.5 rounded-full font-medium",
+                  levelBadgeColors[district.level],
+                )}
               >
                 {levelLabels[district.level]}
               </span>
@@ -96,20 +98,19 @@ export const SearchResultCard = ({
 
           <button
             onClick={handleToggleFavorite}
-            className={`
-              flex-shrink-0 p-2 rounded-full transition-all duration-200
-              ${
-                isAdded
-                  ? 'bg-yellow-100 hover:bg-yellow-200'
-                  : 'bg-gray-100 hover:bg-gray-200'
-              }
-            `}
+            className={cn(
+              "flex-shrink-0 p-2 rounded-full transition-all duration-200",
+              isAdded
+                ? "bg-yellow-100 hover:bg-yellow-200"
+                : "bg-gray-100 hover:bg-gray-200",
+            )}
             title={isAdded ? '즐겨찾기 삭제' : '즐겨찾기 추가'}
           >
             <Star
-              className={`w-5 h-5 ${
-                isAdded ? 'fill-yellow-500 text-yellow-500' : 'text-gray-400'
-              }`}
+              className={cn(
+                "w-5 h-5",
+                isAdded ? "fill-yellow-500 text-yellow-500" : "text-gray-400",
+              )}
             />
           </button>
         </div>
