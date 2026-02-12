@@ -1,7 +1,8 @@
 import { Star } from 'lucide-react'
 import { useFavoriteStore } from '@/entities/favorite'
 import { useState } from 'react'
-import { cn } from '@/shared/lib/utils/cn'
+import { cn } from '@/shared'
+
 
 interface AddFavoriteButtonProps {
   address: string
@@ -17,8 +18,7 @@ export const AddFavoriteButton = ({
   onSuccess,
   size = 'default',
 }: AddFavoriteButtonProps) => {
-  const { addFavorite, removeFavorite, isFavorite, getFavoriteByAddress } =
-    useFavoriteStore()
+  const { addFavorite, removeFavorite, isFavorite, getFavoriteByAddress } = useFavoriteStore()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

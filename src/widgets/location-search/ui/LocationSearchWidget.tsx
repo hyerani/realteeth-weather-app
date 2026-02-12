@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SearchInput } from '@/features/search-location/ui/SearchInput'
-import { SearchResultsList } from '@/features/search-location/ui/SearchResultsList'
-import { useDistrictSearch } from '@/entities/location/model/useDistrictSearch'
-import type { SearchResult } from '@/entities/location/model/districtTypes'
+import { SearchInput, SearchResultsList } from '@/features/search-location'
+import { useDistrictSearch, type SearchResult } from '@/entities/location'
 
 interface LocationSearchWidgetProps {
   onSelectLocation?: (result: SearchResult) => void

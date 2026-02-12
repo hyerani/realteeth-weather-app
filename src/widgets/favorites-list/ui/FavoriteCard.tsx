@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { MapPin, Edit2, Trash2 } from 'lucide-react'
-import { getWeatherIconUrl } from '@/entities/weather'
+import { getWeatherIconUrl, useWeatherByAddress } from '@/entities/weather'
 import { useFavoriteStore } from '@/entities/favorite'
 import type { Favorite } from '@/entities/favorite'
-import { EditNameModal } from '@/features/edit-favorite-name/ui/EditNameModal'
-import { useWeatherByAddress } from '@/entities/weather/model/useWeatherQuery'
+import { EditNameModal } from '@/features/edit-favorite-name'
+
 
 interface FavoriteCardProps {
   favorite: Favorite

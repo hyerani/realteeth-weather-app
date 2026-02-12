@@ -1,14 +1,11 @@
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { getWeatherIconUrl } from '@/entities/weather'
-import { useWeatherByAddress } from '@/entities/weather/model/useWeatherQuery'
-import { AddFavoriteButton } from '@/features/add-favorite/ui/AddFavoriteButton'
+import { getWeatherIconUrl, useWeatherByAddress } from '@/entities/weather'
+import { AddFavoriteButton } from '@/features/add-favorite'
 
 
 /**
  * 날씨 상세 페이지
- * - 검색 결과에서 장소 선택 시
- * - 즐겨찾기 카드 클릭 시
  */
 export const WeatherDetailPage = () => {
   const navigate = useNavigate()

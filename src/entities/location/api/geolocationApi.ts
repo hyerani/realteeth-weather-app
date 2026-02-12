@@ -1,3 +1,4 @@
+import { ENV } from "@/shared"
 import { GEOLOCATION_ERROR_MESSAGES, GeolocationErrorCode, type Coordinates, type GeolocationOptions, type GeolocationResult } from "../model/types"
 
 
@@ -64,34 +65,19 @@ export const checkGeolocationPermission = async (): Promise<PermissionState> => 
 }
 
 /**
- * 위치 정보가 사용 가능한지 확인
- * 
- * @returns boolean
- */
-export const isGeolocationAvailable = (): boolean => {
-  return 'geolocation' in navigator
-}
-
-/**
  * OpenWeatherMap Geocoding API를 사용한 역지오코딩
  * (좌표 → 주소 변환)
  * 
- * @param lat 위도
- * @param lon 경도
+ * @param lat
+ * @param lon
  * @returns Promise<string> 주소
  */
 export const reverseGeocode = async (
   lat: number,
   lon: number
 ): Promise<string> => {
-  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY
-
-  if (!API_KEY) {
-    throw new Error('API 키가 설정되지 않았습니다.')
-  }
-
   try {
-    const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${API_KEY}`
+    const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${ENV.WEATHER_API_KEY}`
     const response = await fetch(url)
 
     if (!response.ok) {
@@ -128,21 +114,15 @@ const normalizeAddress = (address: string): string => {
  * OpenWeatherMap Geocoding API를 사용한 정지오코딩
  * (주소 → 좌표 변환)
  * 
- * @param address 주소
+ * @param address
  * @returns Promise<Coordinates> 좌표
  */
 export const geocodeAddress = async (
   address: string
 ): Promise<Coordinates> => {
-  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY
-
-  if (!API_KEY) {
-    throw new Error('API 키가 설정되지 않았습니다.')
-  }
-
   const fetchCoords = async (query: string): Promise<Coordinates | null> => {
     try {
-      const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)},KR&limit=1&appid=${API_KEY}`
+      const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)},KR&limit=1&appid=${ENV.WEATHER_API_KEY}`
       const response = await fetch(url)
       
       if (!response.ok) return null

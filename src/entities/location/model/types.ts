@@ -11,15 +11,6 @@ export interface Coordinates {
 }
 
 /**
- * 위치 정보 (좌표 + 주소)
- */
-export interface Location {
-  coordinates: Coordinates
-  address: string // "서울특별시 종로구"
-  displayName?: string // 사용자 지정 이름
-}
-
-/**
  * Geolocation API 에러 코드
  */
 export const GeolocationErrorCode = {
@@ -43,9 +34,9 @@ export const GEOLOCATION_ERROR_MESSAGES = {
  * 위치 감지 옵션
  */
 export interface GeolocationOptions {
-  enableHighAccuracy?: boolean // 고정밀도 사용 여부
-  timeout?: number // 타임아웃 (ms)
-  maximumAge?: number // 캐시된 위치 최대 유효 시간 (ms)
+  enableHighAccuracy?: boolean
+  timeout?: number
+  maximumAge?: number
 }
 
 /**
@@ -54,15 +45,5 @@ export interface GeolocationOptions {
 export interface GeolocationResult {
   coordinates: Coordinates
   timestamp: number
-  accuracy: number // 정확도 (미터)
-}
-
-/**
- * 역지오코딩 결과 (좌표 → 주소)
- */
-export interface ReverseGeocodeResult {
-  address: string
-  city?: string
-  district?: string
-  country?: string
+  accuracy: number
 }

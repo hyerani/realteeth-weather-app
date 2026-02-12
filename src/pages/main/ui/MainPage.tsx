@@ -1,12 +1,9 @@
 import { CurrentLocationWidget } from '@/widgets/current-location'
-import { FavoritesListWidget } from '@/widgets/favorites-list/ui/FavoritesListWidget'
-import { LocationSearchWidget } from '@/widgets/location-search/ui/LocationSearchWidget'
+import { FavoritesListWidget } from '@/widgets/favorites-list'
+import { LocationSearchWidget } from '@/widgets/location-search'
 
 /**
  * 메인 페이지
- * - 현재 위치 날씨
- * - 장소 검색
- * - 즐겨찾기 목록
  */
 export const MainPage = () => {
   return (

@@ -10,7 +10,6 @@ import type { District } from './districtTypes'
 export const districtKeys = {
   all: ['districts'] as const,
   list: () => [...districtKeys.all, 'list'] as const,
-  search: (query: string) => [...districtKeys.all, 'search', query] as const,
 }
 
 /**
@@ -32,8 +31,8 @@ export const useDistricts = () => {
 /**
  * 장소 검색 훅
  * 
- * @param query - 검색어
- * @param options - 검색 옵션
+ * @param query
+ * @param options
  * @returns 검색 결과
  */
 export const useDistrictSearch = (

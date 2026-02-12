@@ -1,6 +1,6 @@
 import { useAutoGeolocation } from '@/entities/location'
 import { useWeatherData, getWeatherIconUrl } from '@/entities/weather'
-import { cn } from '@/shared/lib/utils/cn'
+import { cn } from '@/shared'
 import { HourlyForecastScroll } from './HourlyForecastScroll'
 
 /**

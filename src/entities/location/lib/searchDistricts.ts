@@ -51,8 +51,8 @@ const calculateMatchScore = (district: District, query: string): number => {
 /**
  * 장소 검색 함수
  * 
- * @param districts - 전체 행정구역 데이터
- * @param options - 검색 옵션
+ * @param districts
+ * @param options
  * @returns 검색 결과 배열
  */
 export const searchDistricts = (
@@ -90,8 +90,8 @@ export const searchDistricts = (
 /**
  * 검색어 하이라이트 처리
  * 
- * @param text - 원본 텍스트
- * @param query - 검색어
+ * @param text
+ * @param query
  * @returns 하이라이트 정보 배열
  */
 export const highlightText = (

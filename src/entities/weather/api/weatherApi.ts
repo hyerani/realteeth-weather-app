@@ -1,11 +1,12 @@
-import { ENV } from '@/shared/config/env'
-import { geocodeAddress } from '@/entities/location/api/geolocationApi'
+
+import { geocodeAddress } from '@/entities/location'
 import type {
   CurrentWeatherResponse,
   HourlyForecastResponse,
   WeatherData,
   HourlyWeather,
 } from '../model/types'
+import { ENV } from '@/shared'
 
 /**
  * OpenWeatherMap API 기본 설정
@@ -50,8 +51,8 @@ const handleResponse = async <T>(response: Response): Promise<T> => {
 
 /**
  * 현재 날씨 정보 가져오기
- * @param lat 위도
- * @param lon 경도
+ * @param lat
+ * @param lon
  * @returns 현재 날씨 데이터
  */
 export const fetchCurrentWeather = async (
@@ -64,9 +65,9 @@ export const fetchCurrentWeather = async (
 }
 
 /**
- * 5일 / 3시간 단위 예보 가져오기
- * @param lat 위도
- * @param lon 경도
+ * 시간 단위 예보 가져오기
+ * @param lat
+ * @param lon
  * @returns 시간대별 예보 데이터
  */
 export const fetchHourlyForecast = async (
@@ -79,9 +80,54 @@ export const fetchHourlyForecast = async (
 }
 
 /**
+ * API 응답 데이터를 WeatherData 형식으로 변환하는 헬퍼
+ */
+const mapResponseToWeatherData = (
+  address: string,
+  currentData: CurrentWeatherResponse,
+  forecastData: HourlyForecastResponse
+): WeatherData => {
+  const hourlyWeather: HourlyWeather[] = forecastData.list
+    .slice(0, 8)
+    .map((item) => ({
+      time: item.dt,
+      timeText: new Date(item.dt * 1000).toLocaleTimeString('ko-KR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }),
+      temp: Math.round(item.main.temp),
+      description: item.weather[0]?.description || '',
+      icon: item.weather[0]?.icon || '',
+      pop: item.pop ? Math.round(item.pop * 100) : undefined,
+    }))
+
+  return {
+    location: address,
+    coordinates: {
+      lat: currentData.coord.lat,
+      lon: currentData.coord.lon,
+    },
+    current: {
+      temp: Math.round(currentData.main.temp),
+      feelsLike: Math.round(currentData.main.feels_like),
+      tempMin: Math.round(currentData.main.temp_min),
+      tempMax: Math.round(currentData.main.temp_max),
+      humidity: currentData.main.humidity,
+      description: currentData.weather[0]?.description || '',
+      icon: currentData.weather[0]?.icon || '',
+      sunrise: currentData.sys.sunrise,
+      sunset: currentData.sys.sunset,
+    },
+    hourly: hourlyWeather,
+    timestamp: currentData.dt,
+  }
+}
+
+/**
  * 현재 날씨 + 시간대별 예보를 합쳐서 가져오기
- * @param lat 위도
- * @param lon 경도
+ * @param lat
+ * @param lon
  * @returns 가공된 날씨 데이터
  */
 export const fetchWeatherData = async (
@@ -94,43 +140,7 @@ export const fetchWeatherData = async (
       fetchHourlyForecast(lat, lon),
     ])
 
-    const hourlyWeather: HourlyWeather[] = forecastData.list
-      .slice(0, 8)
-      .map((item) => ({
-        time: item.dt,
-        timeText: new Date(item.dt * 1000).toLocaleTimeString('ko-KR', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        }),
-        temp: Math.round(item.main.temp),
-        description: item.weather[0]?.description || '',
-        icon: item.weather[0]?.icon || '',
-        pop: item.pop ? Math.round(item.pop * 100) : undefined,
-      }))
-
-    const weatherData: WeatherData = {
-      location: currentData.name,
-      coordinates: {
-        lat: currentData.coord.lat,
-        lon: currentData.coord.lon,
-      },
-      current: {
-        temp: Math.round(currentData.main.temp),
-        feelsLike: Math.round(currentData.main.feels_like),
-        tempMin: Math.round(currentData.main.temp_min),
-        tempMax: Math.round(currentData.main.temp_max),
-        humidity: currentData.main.humidity,
-        description: currentData.weather[0]?.description || '',
-        icon: currentData.weather[0]?.icon || '',
-        sunrise: currentData.sys.sunrise,
-        sunset: currentData.sys.sunset,
-      },
-      hourly: hourlyWeather,
-      timestamp: currentData.dt,
-    }
-
-    return weatherData
+    return mapResponseToWeatherData(currentData.name, currentData, forecastData)
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`날씨 정보를 가져오는데 실패했습니다 ${error.message}`)
@@ -142,7 +152,7 @@ export const fetchWeatherData = async (
 /**
  * 주소로 날씨 데이터 가져오기
  * 
- * @param address - 전체 주소
+ * @param address
  * @returns 가공된 날씨 데이터
  */
 export const fetchWeatherByAddress = async (
@@ -156,43 +166,7 @@ export const fetchWeatherByAddress = async (
       fetchHourlyForecast(coords.lat, coords.lon),
     ])
 
-    const hourlyWeather: HourlyWeather[] = forecastData.list
-      .slice(0, 8)
-      .map((item) => ({
-        time: item.dt,
-        timeText: new Date(item.dt * 1000).toLocaleTimeString('ko-KR', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        }),
-        temp: Math.round(item.main.temp),
-        description: item.weather[0]?.description || '',
-        icon: item.weather[0]?.icon || '',
-        pop: item.pop ? Math.round(item.pop * 100) : undefined,
-      }))
-
-    const weatherData: WeatherData = {
-      location: address,
-      coordinates: {
-        lat: coords.lat,
-        lon: coords.lon,
-      },
-      current: {
-        temp: Math.round(currentData.main.temp),
-        feelsLike: Math.round(currentData.main.feels_like),
-        tempMin: Math.round(currentData.main.temp_min),
-        tempMax: Math.round(currentData.main.temp_max),
-        humidity: currentData.main.humidity,
-        description: currentData.weather[0]?.description || '',
-        icon: currentData.weather[0]?.icon || '',
-        sunrise: currentData.sys.sunrise,
-        sunset: currentData.sys.sunset,
-      },
-      hourly: hourlyWeather,
-      timestamp: currentData.dt,
-    }
-
-    return weatherData
+    return mapResponseToWeatherData(address, currentData, forecastData)
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`날씨 정보를 가져오는데 실패했습니다 ${error.message}`)

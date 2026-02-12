@@ -1,5 +1,4 @@
-import { QueryProvider } from './providers/QueryProvider'
-import { RouterProvider } from './providers/RouterProvider'
+import { QueryProvider, RouterProvider } from './providers'
 import './styles/globals.css'
 
 function App() {

@@ -1,9 +1,9 @@
 import { MapPin, Star } from 'lucide-react'
 import { useState } from 'react'
-import type { District } from '@/entities/location/model/districtTypes'
-import { highlightText } from '@/entities/location/lib/searchDistricts'
+import { highlightText, type District } from '@/entities/location'
 import { useFavoriteStore } from '@/entities/favorite'
-import { cn } from '@/shared/lib/utils/cn'
+import { cn } from '@/shared'
+
 
 interface SearchResultCardProps {
   district: District

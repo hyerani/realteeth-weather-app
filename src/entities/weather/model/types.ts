@@ -11,9 +11,9 @@ export interface Coordinates {
  */
 export interface WeatherCondition {
   id: number
-  main: string // Clear, Clouds, Rain, Snow 등
-  description: string // 상세 설명
-  icon: string // 아이콘 코드
+  main: string
+  description: string
+  icon: string
 }
 
 /**
@@ -151,22 +151,4 @@ export interface HourlyWeather {
   description: string
   icon: string
   pop?: number
-}
-
-/**
- * API 에러 응답
- */
-export interface WeatherApiError {
-  cod: string | number
-  message: string
-}
-
-/**
- * 날씨 API 요청 파라미터
- */
-export interface WeatherApiParams {
-  lat: number
-  lon: number
-  units?: 'metric' | 'imperial' | 'standard'
-  lang?: string
 }

@@ -5,7 +5,6 @@ import { FavoriteCard } from './FavoriteCard'
 
 /**
  * 즐겨찾기 목록 위젯
- * - 최대 6개까지 표시
  */
 export const FavoritesListWidget = () => {
   const navigate = useNavigate()

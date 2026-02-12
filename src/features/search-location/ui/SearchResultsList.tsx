@@ -1,5 +1,5 @@
 import { SearchResultCard } from './SearchResultCard'
-import type { SearchResult } from '@/entities/location/model/districtTypes'
+import type { SearchResult } from '@/entities/location'
 
 interface SearchResultsListProps {
   results: SearchResult[]

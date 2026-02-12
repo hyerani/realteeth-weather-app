@@ -1,6 +1,6 @@
 import { useRef, useState, type MouseEvent } from 'react'
 import { getWeatherIconUrl, type HourlyWeather } from '@/entities/weather'
-import { cn } from '@/shared/lib/utils/cn'
+import { cn } from '@/shared'
 
 interface HourlyForecastScrollProps {
   hourly: HourlyWeather[]
