@@ -1,11 +1,13 @@
+import { useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useAutoGeolocation } from '@/entities/location'
 import { useWeatherData, getWeatherIconUrl } from '@/entities/weather'
 
 /**
  * 현재 위치의 날씨를 표시하는 위젯
- * 앱 첫 진입 시 자동으로 위치를 감지하여 날씨 표시
  */
 export const CurrentLocationWidget = () => {
+  const [startIndex, setStartIndex] = useState(0)
   const {
     coordinates,
     address,
@@ -113,6 +115,18 @@ export const CurrentLocationWidget = () => {
 
   if (!weather) return null
 
+    const handlePrev = () => {
+    if (startIndex > 0) {
+      setStartIndex(startIndex - 1)
+    }
+  }
+
+  const handleNext = () => {
+    if (startIndex < weather.hourly.length - 4) {
+      setStartIndex(startIndex + 1)
+    }
+  }
+
   return (
     <div className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg p-6 md:p-8 text-white shadow-lg">
       <div className="flex items-center justify-between mb-6">
@@ -130,7 +144,6 @@ export const CurrentLocationWidget = () => {
         />
       </div>
 
-      {/* 현재 온도 */}
       <div className="mb-6">
         <div className="flex items-baseline gap-2 mb-2">
           <p className="text-6xl font-bold">{weather.current.temp}°C</p>
@@ -141,7 +154,6 @@ export const CurrentLocationWidget = () => {
         <p className="text-xl">{weather.current.description}</p>
       </div>
 
-      {/* 최저, 최고, 습도 */}
       <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/20">
         <div>
           <p className="text-sm opacity-80 mb-1">최저 기온</p>
@@ -157,21 +169,59 @@ export const CurrentLocationWidget = () => {
         </div>
       </div>
 
-      {/* 시간대별 미리보기 */}
       <div className="mt-6 pt-4 border-t border-white/20">
-        <p className="text-sm opacity-80 mb-3">시간대별 예보</p>
-        <div className="grid grid-cols-4 gap-2">
-          {weather.hourly.slice(0, 4).map((hour) => (
-            <div key={hour.time} className="text-center bg-white/10 rounded p-2">
-              <p className="text-xs opacity-80">{hour.timeText}</p>
-              <img
-                src={getWeatherIconUrl(hour.icon, '1x')}
-                alt={hour.description}
-                className="w-8 h-8 mx-auto my-1"
-              />
-              <p className="text-sm font-semibold">{hour.temp}°C</p>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-sm opacity-80">시간대별 예보</p>
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <button 
+            onClick={handlePrev}
+            disabled={startIndex === 0}
+            className={`p-1 rounded-full bg-white/10 hover:bg-white/20 transition-colors 
+              ${startIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100'}`}
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <div className="flex-1 px-1 py-1">
+            <div className="grid grid-cols-4 gap-1 sm:gap-2">
+              {weather.hourly.slice(startIndex, startIndex + 4).map((hour) => {
+                const isMidnight = new Date(hour.time * 1000).getHours() === 0
+                const isTomorrow =
+                  new Date(hour.time * 1000).getDate() !==
+                  new Date(weather.timestamp * 1000).getDate()
+
+                return (
+                  <div key={hour.time} className="relative pt-3">
+                    {isMidnight && isTomorrow && (
+                      <span className="absolute top-0 left-1/2 -translate-x-1/2 text-[10px] bg-white/20 px-1.5 rounded-full text-white font-medium whitespace-nowrap z-10 border border-white/10 shadow-sm">
+                        내일
+                      </span>
+                    )}
+                    <div className="text-center bg-white/10 rounded p-1.5 sm:p-2 min-w-0">
+                      <p className="text-[10px] sm:text-xs opacity-80 truncate">{hour.timeText}</p>
+                      <img
+                        src={getWeatherIconUrl(hour.icon, '1x')}
+                        alt={hour.description}
+                        className="w-6 h-6 sm:w-8 sm:h-8 mx-auto my-0.5 sm:my-1"
+                      />
+                      <p className="text-xs sm:text-sm font-semibold truncate">{hour.temp}°C</p>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-          ))}
+          </div>
+
+          <button 
+            onClick={handleNext}
+            disabled={startIndex >= weather.hourly.length - 4}
+            className={`p-1 rounded-full bg-white/10 hover:bg-white/20 transition-colors
+              ${startIndex >= weather.hourly.length - 4 ? 'opacity-30 cursor-not-allowed' : 'opacity-100'} flex-shrink-0`}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </div>

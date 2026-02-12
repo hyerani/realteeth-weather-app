@@ -131,23 +131,35 @@ export const WeatherDetailPage = () => {
             시간대별 기온
           </h2>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-            {weather.hourly.map((hour) => (
-              <div
-                key={hour.time}
-                className="text-center p-3 bg-gray-50 rounded-lg"
-              >
-                <p className="text-sm text-gray-500 mb-2">{hour.timeText}</p>
-                <img
-                  src={getWeatherIconUrl(hour.icon)}
-                  alt={hour.description}
-                  className="w-12 h-12 mx-auto mb-2"
-                />
-                <p className="font-semibold text-gray-900">{hour.temp}°C</p>
-                {hour.pop !== undefined && hour.pop > 0 && (
-                  <p className="text-xs text-blue-500 mt-1">💧 {hour.pop}%</p>
-                )}
-              </div>
-            ))}
+            {weather.hourly.map((hour) => {
+              const isMidnight = new Date(hour.time * 1000).getHours() === 0
+              const isTomorrow =
+                new Date(hour.time * 1000).getDate() !==
+                new Date(weather.timestamp * 1000).getDate()
+
+              return (
+                <div
+                  key={hour.time}
+                  className="text-center p-3 bg-gray-50 rounded-lg relative"
+                >
+                  {isMidnight && isTomorrow && (
+                    <span className="absolute top-0.5 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 font-medium pt-1">
+                      내일
+                    </span>
+                  )}
+                  <p className="text-sm text-gray-500 mb-2 pt-2">{hour.timeText}</p>
+                  <img
+                    src={getWeatherIconUrl(hour.icon)}
+                    alt={hour.description}
+                    className="w-12 h-12 mx-auto mb-2"
+                  />
+                  <p className="font-semibold text-gray-900">{hour.temp}°C</p>
+                  {hour.pop !== undefined && hour.pop > 0 && (
+                    <p className="text-xs text-blue-500 mt-1">💧 {hour.pop}%</p>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
