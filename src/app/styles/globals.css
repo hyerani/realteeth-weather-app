@@ -27,3 +27,37 @@
     text-wrap: balance;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .animate-fade-slide-up {
+    animation: fadeSlideUp 0.5s ease-out both;
+  }
+
+  .delay-80 { animation-delay: 80ms; }
+  .delay-160 { animation-delay: 160ms; }
+  .delay-240 { animation-delay: 240ms; }
+}
