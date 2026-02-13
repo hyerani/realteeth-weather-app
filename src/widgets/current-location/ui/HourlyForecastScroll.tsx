@@ -1,6 +1,5 @@
-import { useRef, useState, type MouseEvent } from 'react'
 import { getWeatherIconUrl, isTomorrowMidnight, type HourlyWeather } from '@/entities/weather'
-import { cn } from '@/shared'
+import { cn, useDragScroll } from '@/shared'
 
 interface HourlyForecastScrollProps {
   hourly: HourlyWeather[]
@@ -11,33 +10,7 @@ interface HourlyForecastScrollProps {
  * 시간대별 날씨를 표시하는 슬라이드 컴포넌트
  */
 export const HourlyForecastScroll = ({ hourly, timestamp }: HourlyForecastScrollProps) => {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const [startX, setStartX] = useState(0)
-  const [scrollLeft, setScrollLeft] = useState(0)
-
-  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    if (!scrollRef.current) return
-    setIsDragging(true)
-    setStartX(e.pageX - scrollRef.current.offsetLeft)
-    setScrollLeft(scrollRef.current.scrollLeft)
-  }
-
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isDragging || !scrollRef.current) return
-    e.preventDefault()
-    const x = e.pageX - scrollRef.current.offsetLeft
-    const walk = (x - startX) * 2
-    scrollRef.current.scrollLeft = scrollLeft - walk
-  }
+  const { scrollRef, isDragging, handlers } = useDragScroll()
 
   return (
     <div
@@ -46,10 +19,7 @@ export const HourlyForecastScroll = ({ hourly, timestamp }: HourlyForecastScroll
         "flex overflow-x-auto pb-4 pt-1 px-1 -mx-1 gap-2 scrollbar-hide select-none",
         isDragging ? "cursor-grabbing" : "cursor-grab"
       )}
-      onMouseDown={handleMouseDown}
-      onMouseLeave={handleMouseLeave}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
+      {...handlers}
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
       {hourly.map((hour) => {
@@ -69,7 +39,7 @@ export const HourlyForecastScroll = ({ hourly, timestamp }: HourlyForecastScroll
                 alt={hour.description}
                 className="w-6 h-6 sm:w-8 sm:h-8 mx-auto my-0.5 sm:my-1 pointer-events-none"
               />
-              <p className="text-xs sm:text-sm font-semibold truncate">{hour.temp}°C</p>
+              <p className="text-xs sm:text-sm font-semibold truncate">{hour.temp}°</p>
             </div>
           </div>
         )

@@ -154,9 +154,9 @@ export const CurrentLocationWidget = () => {
             className="animate-fade-slide-up mb-6 delay-80"
           >
             <div className="flex items-baseline gap-2 mb-2">
-              <p className="text-6xl font-bold">{weather.current.temp}°C</p>
+              <p className="text-6xl font-bold">{weather.current.temp}°</p>
               <p className="text-xl opacity-80">
-                체감 {weather.current.feelsLike}°C
+                체감 {weather.current.feelsLike}°
               </p>
             </div>
             <p className="text-xl">{weather.current.description}</p>
@@ -167,11 +167,11 @@ export const CurrentLocationWidget = () => {
           >
             <div>
               <p className="text-sm opacity-80 mb-1">최저 기온</p>
-              <p className="text-2xl font-semibold">{weather.current.tempMin}°C</p>
+              <p className="text-2xl font-semibold">{weather.current.tempMin}°</p>
             </div>
             <div>
               <p className="text-sm opacity-80 mb-1">최고 기온</p>
-              <p className="text-2xl font-semibold">{weather.current.tempMax}°C</p>
+              <p className="text-2xl font-semibold">{weather.current.tempMax}°</p>
             </div>
             <div>
               <p className="text-sm opacity-80 mb-1">습도</p>

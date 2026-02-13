@@ -2,6 +2,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { getWeatherIconUrl, isTomorrowMidnight, useWeatherByAddress } from '@/entities/weather'
 import { AddFavoriteButton } from '@/features/add-favorite'
+import { useDragScroll } from '@/shared'
 
 
 /**
@@ -10,6 +11,7 @@ import { AddFavoriteButton } from '@/features/add-favorite'
 export const WeatherDetailPage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
+  const { scrollRef, isDragging, handlers } = useDragScroll()
 
   const address = searchParams.get('name') || '알 수 없는 장소'
 
@@ -97,10 +99,10 @@ export const WeatherDetailPage = () => {
         <div className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl p-8 text-white mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-6xl font-bold mb-2">{weather.current.temp}°C</p>
+              <p className="text-6xl font-bold mb-2">{weather.current.temp}°</p>
               <p className="text-xl mb-1">{weather.current.description}</p>
               <p className="text-sm opacity-90">
-                체감 {weather.current.feelsLike}°C
+                체감 {weather.current.feelsLike}°
               </p>
             </div>
             <img
@@ -113,11 +115,11 @@ export const WeatherDetailPage = () => {
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
             <div>
               <p className="text-sm opacity-80 mb-1">최저 기온</p>
-              <p className="text-2xl font-semibold">{weather.current.tempMin}°C</p>
+              <p className="text-2xl font-semibold">{weather.current.tempMin}°</p>
             </div>
             <div>
               <p className="text-sm opacity-80 mb-1">최고 기온</p>
-              <p className="text-2xl font-semibold">{weather.current.tempMax}°C</p>
+              <p className="text-2xl font-semibold">{weather.current.tempMax}°</p>
             </div>
             <div>
               <p className="text-sm opacity-80 mb-1">습도</p>
@@ -130,14 +132,19 @@ export const WeatherDetailPage = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-4">
             시간대별 기온
           </h2>
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
+          <div
+            ref={scrollRef}
+            className={`flex overflow-x-auto gap-3 pb-2 scrollbar-hide select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            {...handlers}
+          >
             {weather.hourly.map((hour) => {
               const showTomorrowLabel = isTomorrowMidnight(hour.time, weather.timestamp)
 
               return (
                 <div
                   key={hour.time}
-                  className="text-center p-3 bg-gray-50 rounded-lg relative"
+                  className="text-center p-3 bg-gray-50 rounded-lg relative flex-shrink-0 w-20"
                 >
                   {showTomorrowLabel && (
                     <span className="absolute top-0.5 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 font-medium pt-1">
@@ -150,9 +157,9 @@ export const WeatherDetailPage = () => {
                     alt={hour.description}
                     className="w-12 h-12 mx-auto mb-2"
                   />
-                  <p className="font-semibold text-gray-900">{hour.temp}°C</p>
+                  <p className="font-semibold text-gray-900">{hour.temp}°</p>
                   {hour.pop !== undefined && hour.pop > 0 && (
-                    <p className="text-xs text-blue-500 mt-1">💧 {hour.pop}%</p>
+                    <p className="text-xs text-blue-500 mt-1">{hour.pop}%</p>
                   )}
                 </div>
               )

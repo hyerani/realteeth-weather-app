@@ -126,7 +126,7 @@ export const FavoriteCard = ({ favorite, onClick }: FavoriteCardProps) => {
 
         <div className="mb-4">
           <p className="text-4xl font-bold text-gray-900 mb-1">
-            {weather.current.temp}°C
+            {weather.current.temp}°
           </p>
           <p className="text-sm text-gray-600">{weather.current.description}</p>
         </div>
@@ -135,13 +135,13 @@ export const FavoriteCard = ({ favorite, onClick }: FavoriteCardProps) => {
           <div className="flex-1">
             <p className="text-xs text-gray-500 mb-1">최저</p>
             <p className="text-lg font-semibold text-blue-600">
-              {weather.current.tempMin}°C
+              {weather.current.tempMin}°
             </p>
           </div>
           <div className="flex-1">
             <p className="text-xs text-gray-500 mb-1">최고</p>
             <p className="text-lg font-semibold text-red-600">
-              {weather.current.tempMax}°C
+              {weather.current.tempMax}°
             </p>
           </div>
         </div>
