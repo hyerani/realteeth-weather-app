@@ -1,11 +1,13 @@
-import { QueryProvider, RouterProvider } from './providers'
+import { ErrorBoundary, QueryProvider, RouterProvider } from './providers'
 import './styles/globals.css'
 
 function App() {
   return (
-    <QueryProvider>
-      <RouterProvider />
-    </QueryProvider>
+    <ErrorBoundary>
+      <QueryProvider>
+        <RouterProvider />
+      </QueryProvider>
+    </ErrorBoundary>
   )
 }
 
