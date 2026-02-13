@@ -6,8 +6,6 @@ export type { Coordinates }
  * 날씨 상태 정보
  */
 export interface WeatherCondition {
-  id: number
-  main: string
   description: string
   icon: string
 }
@@ -19,22 +17,13 @@ export interface OneCallResponse {
   lat: number
   lon: number
   timezone: string
-  timezone_offset: number
   current: {
     dt: number
     sunrise: number
     sunset: number
     temp: number
     feels_like: number
-    pressure: number
     humidity: number
-    dew_point: number
-    uvi: number
-    clouds: number
-    visibility: number
-    wind_speed: number
-    wind_deg: number
-    wind_gust?: number
     weather: WeatherCondition[]
   }
   hourly: OneCallHourlyItem[]
@@ -47,16 +36,6 @@ export interface OneCallResponse {
 export interface OneCallHourlyItem {
   dt: number
   temp: number
-  feels_like: number
-  pressure: number
-  humidity: number
-  dew_point: number
-  uvi: number
-  clouds: number
-  visibility: number
-  wind_speed: number
-  wind_deg: number
-  wind_gust?: number
   weather: WeatherCondition[]
   pop: number
 }
@@ -65,29 +44,11 @@ export interface OneCallHourlyItem {
  * One Call 일별 예보 아이템
  */
 export interface OneCallDailyItem {
-  dt: number
-  sunrise: number
-  sunset: number
   temp: {
-    day: number
     min: number
     max: number
-    night: number
-    eve: number
-    morn: number
   }
-  feels_like: {
-    day: number
-    night: number
-    eve: number
-    morn: number
-  }
-  pressure: number
-  humidity: number
-  weather: WeatherCondition[]
-  clouds: number
   pop: number
-  uvi: number
 }
 
 /**

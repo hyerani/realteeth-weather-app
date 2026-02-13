@@ -39,11 +39,3 @@ export interface GeolocationOptions {
   maximumAge?: number
 }
 
-/**
- * 위치 감지 결과
- */
-export interface GeolocationResult {
-  coordinates: Coordinates
-  timestamp: number
-  accuracy: number
-}

@@ -11,7 +11,7 @@ import { ENV } from '@/shared'
  * OpenWeatherMap API 기본 설정
  */
 const API_CONFIG = {
-  BASE_URL: ENV.WEATHER_API_BASE_URL,
+  BASE_URL: ENV.WEATHER_API_BASE_URL || 'https://api.openweathermap.org/data/3.0/onecall',
   API_KEY: ENV.WEATHER_API_KEY,
   DEFAULT_UNITS: 'metric',
   DEFAULT_LANG: 'kr',
