@@ -102,9 +102,9 @@ export const FavoriteCard = ({ favorite, onClick }: FavoriteCardProps) => {
 
   return (
     <>
-      <button
+      <div
         onClick={onClick}
-        className="w-full bg-white rounded-xl p-6 shadow hover:shadow-lg 
+        className="w-full cursor-pointer bg-white rounded-xl p-6 shadow hover:shadow-lg 
                  transition-all duration-200 text-left group"
       >
         <div className="flex items-start justify-between mb-4">
@@ -166,7 +166,7 @@ export const FavoriteCard = ({ favorite, onClick }: FavoriteCardProps) => {
             <span className="text-sm font-medium">삭제</span>
           </button>
         </div>
-      </button>
+      </div>
 
       <EditNameModal
         favoriteId={favorite.id}

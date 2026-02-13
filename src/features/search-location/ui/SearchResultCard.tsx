@@ -40,9 +40,9 @@ export const SearchResultCard = ({
 
   return (
     <div className="relative">
-      <button
+      <div
         onClick={onClick}
-        className="w-full text-left p-4 bg-white border border-gray-200
+        className="w-full cursor-pointer text-left p-4 bg-white border border-gray-200
                    rounded-lg hover:border-blue-500 hover:shadow-md
                    transition-all duration-200 group"
       >
@@ -95,7 +95,7 @@ export const SearchResultCard = ({
             />
           </button>
         </div>
-      </button>
+      </div>
 
       {error && (
         <div className="absolute top-full left-0 right-0 mt-2 p-3
