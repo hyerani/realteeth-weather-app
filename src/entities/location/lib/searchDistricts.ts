@@ -3,27 +3,8 @@ import type { District, SearchResult, SearchOptions } from '../model/districtTyp
 /**
  * 한국어 초성 추출
  */
-const CHOSUNG_LIST = [
-  'ㄱ',
-  'ㄲ',
-  'ㄴ',
-  'ㄷ',
-  'ㄸ',
-  'ㄹ',
-  'ㅁ',
-  'ㅂ',
-  'ㅃ',
-  'ㅅ',
-  'ㅆ',
-  'ㅇ',
-  'ㅈ',
-  'ㅉ',
-  'ㅊ',
-  'ㅋ',
-  'ㅌ',
-  'ㅍ',
-  'ㅎ',
-]
+// prettier-ignore
+const CHOSUNG_LIST = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ']
 
 const getChosung = (text: string): string => {
   return text
