@@ -7,7 +7,6 @@ import { LocationSearchWidget } from '@/widgets/location-search'
  */
 export const MainPage = () => {
   return (
-   <div className="container mx-auto p-4">
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto p-4 md:p-6">
         <header className="mb-8">
@@ -36,6 +35,5 @@ export const MainPage = () => {
         </div>
       </div>
     </div>
-   </div>
   )
 }
