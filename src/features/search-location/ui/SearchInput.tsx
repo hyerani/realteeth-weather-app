@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react'
 import { Search, X } from 'lucide-react'
 import { cn } from '@/shared'
 
-
 interface SearchInputProps {
   value: string
   onChange: (value: string) => void
@@ -50,16 +49,13 @@ export const SearchInput = ({
   return (
     <div
       className={cn(
-        "relative flex items-center gap-3 px-4 py-3",
-        "bg-white border-2 rounded-lg transition-all",
-        isFocused ? "border-blue-500 shadow-lg" : "border-gray-200",
+        'relative flex items-center gap-3 px-4 py-3',
+        'bg-white border-2 rounded-lg transition-all',
+        isFocused ? 'border-blue-500 shadow-lg' : 'border-gray-200',
       )}
     >
       <Search
-        className={cn(
-          "w-5 h-5 transition-colors",
-          isFocused ? "text-blue-500" : "text-gray-400",
-        )}
+        className={cn('w-5 h-5 transition-colors', isFocused ? 'text-blue-500' : 'text-gray-400')}
       />
 
       <input

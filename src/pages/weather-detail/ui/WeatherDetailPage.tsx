@@ -4,7 +4,6 @@ import { getWeatherIconUrl, isTomorrowMidnight, useWeatherByAddress } from '@/en
 import { AddFavoriteButton } from '@/features/add-favorite'
 import { useDragScroll } from '@/shared'
 
-
 /**
  * 날씨 상세 페이지
  */
@@ -45,8 +44,10 @@ export const WeatherDetailPage = () => {
           </button>
 
           <div className="bg-white rounded-lg p-8 text-center shadow">
-            <div className="inline-flex items-center justify-center w-16 h-16 
-                            bg-yellow-100 rounded-full mb-4">
+            <div
+              className="inline-flex items-center justify-center w-16 h-16 
+                            bg-yellow-100 rounded-full mb-4"
+            >
               <span className="text-3xl">⚠️</span>
             </div>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
@@ -101,9 +102,7 @@ export const WeatherDetailPage = () => {
             <div>
               <p className="text-6xl font-bold mb-2">{weather.current.temp}°</p>
               <p className="text-xl mb-1">{weather.current.description}</p>
-              <p className="text-sm opacity-90">
-                체감 {weather.current.feelsLike}°
-              </p>
+              <p className="text-sm opacity-90">체감 {weather.current.feelsLike}°</p>
             </div>
             <img
               src={getWeatherIconUrl(weather.current.icon, '4x')}
@@ -133,9 +132,7 @@ export const WeatherDetailPage = () => {
         </div>
 
         <div className="bg-white rounded-2xl p-6 shadow">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
-            시간대별 기온
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">시간대별 기온</h2>
           <div
             ref={scrollRef}
             className={`flex overflow-x-auto gap-3 pb-2 scrollbar-hide select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}

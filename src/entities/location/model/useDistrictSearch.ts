@@ -14,7 +14,7 @@ export const districtKeys = {
 
 /**
  * 전체 행정구역 데이터 조회
- * 
+ *
  * @returns 전체 행정구역 목록
  */
 export const useDistricts = () => {
@@ -30,7 +30,7 @@ export const useDistricts = () => {
 
 /**
  * 장소 검색 훅
- * 
+ *
  * @param query
  * @param options
  * @returns 검색 결과
@@ -40,7 +40,7 @@ export const useDistrictSearch = (
   options?: {
     limit?: number
     enabled?: boolean
-  }
+  },
 ) => {
   const { data: districts } = useDistricts()
 

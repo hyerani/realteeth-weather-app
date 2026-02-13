@@ -17,8 +17,8 @@ export const HourlyForecastScroll = ({ hourly, timestamp }: HourlyForecastScroll
     <div
       ref={scrollRef}
       className={cn(
-        "flex overflow-x-auto pb-4 pt-1 px-1 -mx-1 gap-2 scrollbar-hide select-none",
-        isDragging ? "cursor-grabbing" : "cursor-grab"
+        'flex overflow-x-auto pb-4 pt-1 px-1 -mx-1 gap-2 scrollbar-hide select-none',
+        isDragging ? 'cursor-grabbing' : 'cursor-grab',
       )}
       {...handlers}
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}

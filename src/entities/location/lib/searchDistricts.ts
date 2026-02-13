@@ -3,7 +3,27 @@ import type { District, SearchResult, SearchOptions } from '../model/districtTyp
 /**
  * 한국어 초성 추출
  */
-const CHOSUNG_LIST = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
+const CHOSUNG_LIST = [
+  'ㄱ',
+  'ㄲ',
+  'ㄴ',
+  'ㄷ',
+  'ㄸ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅃ',
+  'ㅅ',
+  'ㅆ',
+  'ㅇ',
+  'ㅈ',
+  'ㅉ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
+]
 
 const getChosung = (text: string): string => {
   return text
@@ -49,15 +69,12 @@ const calculateMatchScore = (district: District, normalizedQuery: string): numbe
 
 /**
  * 장소 검색 함수
- * 
+ *
  * @param districts
  * @param options
  * @returns 검색 결과 배열
  */
-export const searchDistricts = (
-  districts: District[],
-  options: SearchOptions
-): SearchResult[] => {
+export const searchDistricts = (districts: District[], options: SearchOptions): SearchResult[] => {
   const { query, limit = 20, level } = options
 
   if (!query.trim()) {
@@ -88,14 +105,14 @@ export const searchDistricts = (
 
 /**
  * 검색어 하이라이트 처리
- * 
+ *
  * @param text
  * @param query
  * @returns 하이라이트 정보 배열
  */
 export const highlightText = (
   text: string,
-  query: string
+  query: string,
 ): Array<{ text: string; highlight: boolean }> => {
   if (!query.trim()) {
     return [{ text, highlight: false }]

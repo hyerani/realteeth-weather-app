@@ -20,13 +20,9 @@ export const CurrentLocationWidget = () => {
     data: weather,
     isLoading: isWeatherLoading,
     error: weatherError,
-  } = useWeatherData(
-    coordinates?.lat ?? null,
-    coordinates?.lon ?? null,
-    {
-      enabled: Boolean(coordinates),
-    }
-  )
+  } = useWeatherData(coordinates?.lat ?? null, coordinates?.lon ?? null, {
+    enabled: Boolean(coordinates),
+  })
 
   if (!hasPermission) {
     return (
@@ -39,8 +35,8 @@ export const CurrentLocationWidget = () => {
           <button
             onClick={requestLocation}
             className={cn(
-              "bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold",
-              "hover:bg-blue-50 transition-colors"
+              'bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold',
+              'hover:bg-blue-50 transition-colors',
             )}
           >
             위치 권한 허용
@@ -54,15 +50,13 @@ export const CurrentLocationWidget = () => {
     return (
       <div className="animate-fade-in bg-red-50 border-2 border-red-200 rounded-2xl p-6">
         <div className="text-center">
-          <p className="text-red-600 font-semibold mb-2">
-            ❌ 위치를 가져올 수 없습니다
-          </p>
+          <p className="text-red-600 font-semibold mb-2">❌ 위치를 가져올 수 없습니다</p>
           <p className="text-sm text-red-500 mb-4">{locationError.message}</p>
           <button
             onClick={requestLocation}
             className={cn(
-              "bg-red-500 text-white px-6 py-2 rounded-lg",
-              "hover:bg-red-600 transition-colors"
+              'bg-red-500 text-white px-6 py-2 rounded-lg',
+              'hover:bg-red-600 transition-colors',
             )}
           >
             다시 시도
@@ -76,9 +70,7 @@ export const CurrentLocationWidget = () => {
     return (
       <div className="animate-fade-in bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6">
         <div className="text-center">
-          <p className="text-yellow-600 font-semibold mb-2">
-            ⚠️ 날씨 정보를 가져올 수 없습니다
-          </p>
+          <p className="text-yellow-600 font-semibold mb-2">⚠️ 날씨 정보를 가져올 수 없습니다</p>
           <p className="text-sm text-yellow-500">{weatherError.message}</p>
         </div>
       </div>
@@ -154,21 +146,15 @@ export const CurrentLocationWidget = () => {
             />
           </div>
 
-          <div
-            className="animate-fade-slide-up mb-6 delay-80"
-          >
+          <div className="animate-fade-slide-up mb-6 delay-80">
             <div className="flex items-baseline gap-2 mb-2">
               <p className="text-6xl font-bold">{weather.current.temp}°</p>
-              <p className="text-xl opacity-80">
-                체감 {weather.current.feelsLike}°
-              </p>
+              <p className="text-xl opacity-80">체감 {weather.current.feelsLike}°</p>
             </div>
             <p className="text-xl">{weather.current.description}</p>
           </div>
 
-          <div
-            className="animate-fade-slide-up grid grid-cols-4 gap-4 pt-4 border-t border-white/20 delay-160"
-          >
+          <div className="animate-fade-slide-up grid grid-cols-4 gap-4 pt-4 border-t border-white/20 delay-160">
             <div>
               <p className="text-sm opacity-80 mb-1">최저 기온</p>
               <p className="text-2xl font-semibold">{weather.current.tempMin}°</p>
@@ -187,9 +173,7 @@ export const CurrentLocationWidget = () => {
             </div>
           </div>
 
-          <div
-            className="animate-fade-slide-up mt-6 pt-4 border-t border-white/20 delay-240"
-          >
+          <div className="animate-fade-slide-up mt-6 pt-4 border-t border-white/20 delay-240">
             <p className="text-sm opacity-80 mb-3">시간대별 예보</p>
             <HourlyForecastScroll hourly={weather.hourly} timestamp={weather.timestamp} />
           </div>

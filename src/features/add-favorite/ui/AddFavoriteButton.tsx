@@ -2,7 +2,6 @@ import { Star } from 'lucide-react'
 import { useFavoriteToggle } from '@/entities/favorite'
 import { cn } from '@/shared'
 
-
 interface AddFavoriteButtonProps {
   address: string
   onSuccess?: () => void
@@ -27,23 +26,21 @@ export const AddFavoriteButton = ({
         onClick={() => toggle(onSuccess)}
         disabled={isLoading}
         className={cn(
-          "flex items-center rounded-lg font-medium transition-all duration-200",
-          "disabled:opacity-50 disabled:cursor-not-allowed",
-          isSmall
-            ? "gap-1 p-1.5 md:gap-1.5 md:px-3 md:py-1.5"
-            : "gap-2 px-4 py-2",
+          'flex items-center rounded-lg font-medium transition-all duration-200',
+          'disabled:opacity-50 disabled:cursor-not-allowed',
+          isSmall ? 'gap-1 p-1.5 md:gap-1.5 md:px-3 md:py-1.5' : 'gap-2 px-4 py-2',
           isAdded
-            ? "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
-            : "bg-gray-100 text-gray-700 hover:bg-gray-200",
+            ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+            : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
         )}
       >
         <Star
           className={cn(
-            isSmall ? "w-6 h-6 md:w-[18px] md:h-[18px]" : "w-5 h-5",
-            isAdded ? "fill-yellow-500 text-yellow-500" : "text-gray-400",
+            isSmall ? 'w-6 h-6 md:w-[18px] md:h-[18px]' : 'w-5 h-5',
+            isAdded ? 'fill-yellow-500 text-yellow-500' : 'text-gray-400',
           )}
         />
-        <span className={cn(isSmall && "hidden md:inline text-sm")}>
+        <span className={cn(isSmall && 'hidden md:inline text-sm')}>
           {isAdded ? '즐겨찾기 삭제' : '즐겨찾기 추가'}
         </span>
       </button>

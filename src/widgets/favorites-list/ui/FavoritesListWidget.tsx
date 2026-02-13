@@ -17,19 +17,15 @@ export const FavoritesListWidget = () => {
   if (favorites.length === 0) {
     return (
       <div className="bg-white rounded-2xl p-8 shadow text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 
-                        bg-gray-100 rounded-full mb-4">
+        <div
+          className="inline-flex items-center justify-center w-16 h-16 
+                        bg-gray-100 rounded-full mb-4"
+        >
           <Star className="w-8 h-8 text-gray-400" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-          즐겨찾기가 비어있습니다
-        </h3>
-        <p className="text-sm text-gray-500 mb-4">
-          자주 확인하는 장소를 즐겨찾기에 추가해보세요
-        </p>
-        <p className="text-xs text-gray-400">
-          최대 {MAX_FAVORITES}개까지 추가할 수 있습니다
-        </p>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">즐겨찾기가 비어있습니다</h3>
+        <p className="text-sm text-gray-500 mb-4">자주 확인하는 장소를 즐겨찾기에 추가해보세요</p>
+        <p className="text-xs text-gray-400">최대 {MAX_FAVORITES}개까지 추가할 수 있습니다</p>
       </div>
     )
   }

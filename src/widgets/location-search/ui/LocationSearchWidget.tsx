@@ -25,7 +25,7 @@ export const LocationSearchWidget = ({
 
     if (autoNavigate) {
       navigate(
-        `/weather/${result.district.id}?name=${encodeURIComponent(result.district.fullName)}`
+        `/weather/${result.district.id}?name=${encodeURIComponent(result.district.fullName)}`,
       )
     }
   }
@@ -33,11 +33,7 @@ export const LocationSearchWidget = ({
   return (
     <div className="w-full">
       <div className="mb-4">
-        <SearchInput
-          value={searchQuery}
-          onChange={setSearchQuery}
-          autoFocus
-        />
+        <SearchInput value={searchQuery} onChange={setSearchQuery} autoFocus />
       </div>
 
       <SearchResultsList

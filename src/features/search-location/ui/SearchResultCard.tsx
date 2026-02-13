@@ -3,7 +3,6 @@ import { highlightText, type District } from '@/entities/location'
 import { useFavoriteToggle } from '@/entities/favorite'
 import { cn } from '@/shared'
 
-
 interface SearchResultCardProps {
   district: District
   searchQuery: string
@@ -25,11 +24,7 @@ const LEVEL_LABELS = {
 /**
  * 검색 결과 카드 컴포넌트
  */
-export const SearchResultCard = ({
-  district,
-  searchQuery,
-  onClick,
-}: SearchResultCardProps) => {
+export const SearchResultCard = ({ district, searchQuery, onClick }: SearchResultCardProps) => {
   const parts = highlightText(district.fullName, searchQuery)
   const { isAdded, error, toggle } = useFavoriteToggle(district.fullName)
 
@@ -47,19 +42,18 @@ export const SearchResultCard = ({
                    transition-all duration-200 group"
       >
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full
+          <div
+            className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full
                           flex items-center justify-center group-hover:bg-blue-100
-                          transition-colors">
+                          transition-colors"
+          >
             <MapPin className="w-5 h-5 text-blue-500" />
           </div>
 
           <div className="flex-1 min-w-0">
             <h3 className="text-base font-semibold text-gray-900 mb-1">
               {parts.map((part, index) => (
-                <span
-                  key={index}
-                  className={part.highlight ? 'text-blue-600' : ''}
-                >
+                <span key={index} className={part.highlight ? 'text-blue-600' : ''}>
                   {part.text}
                 </span>
               ))}
@@ -68,7 +62,7 @@ export const SearchResultCard = ({
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span
                 className={cn(
-                  "px-2 py-0.5 rounded-full font-medium",
+                  'px-2 py-0.5 rounded-full font-medium',
                   LEVEL_BADGE_COLORS[district.level],
                 )}
               >
@@ -80,17 +74,15 @@ export const SearchResultCard = ({
           <button
             onClick={handleToggleFavorite}
             className={cn(
-              "flex-shrink-0 p-2 rounded-full transition-all duration-200",
-              isAdded
-                ? "bg-yellow-100 hover:bg-yellow-200"
-                : "bg-gray-100 hover:bg-gray-200",
+              'flex-shrink-0 p-2 rounded-full transition-all duration-200',
+              isAdded ? 'bg-yellow-100 hover:bg-yellow-200' : 'bg-gray-100 hover:bg-gray-200',
             )}
             title={isAdded ? '즐겨찾기 삭제' : '즐겨찾기 추가'}
           >
             <Star
               className={cn(
-                "w-5 h-5",
-                isAdded ? "fill-yellow-500 text-yellow-500" : "text-gray-400",
+                'w-5 h-5',
+                isAdded ? 'fill-yellow-500 text-yellow-500' : 'text-gray-400',
               )}
             />
           </button>
@@ -98,9 +90,11 @@ export const SearchResultCard = ({
       </div>
 
       {error && (
-        <div className="absolute top-full left-0 right-0 mt-2 p-3
+        <div
+          className="absolute top-full left-0 right-0 mt-2 p-3
                         bg-red-50 border border-red-200 rounded-lg
-                        text-sm text-red-600 z-10 shadow-lg">
+                        text-sm text-red-600 z-10 shadow-lg"
+        >
           {error}
         </div>
       )}

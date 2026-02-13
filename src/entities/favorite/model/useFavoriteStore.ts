@@ -40,7 +40,7 @@ export const useFavoriteStore = create<FavoritesState>()(
         const { favorites } = get()
         set({
           favorites: favorites.map((fav) =>
-            fav.id === id ? { ...fav, displayName: newName } : fav
+            fav.id === id ? { ...fav, displayName: newName } : fav,
           ),
         })
       },
@@ -57,6 +57,6 @@ export const useFavoriteStore = create<FavoritesState>()(
     }),
     {
       name: 'weather-favorites',
-    }
-  )
+    },
+  ),
 )

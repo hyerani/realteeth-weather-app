@@ -6,7 +6,6 @@ import {
   checkGeolocationPermission,
 } from '../api/geolocationApi'
 
-
 export const locationKeys = {
   all: ['location'] as const,
   current: () => [...locationKeys.all, 'current'] as const,
@@ -14,13 +13,11 @@ export const locationKeys = {
 
 /**
  * 현재 위치와 주소를 함께 가져오기 훅
- * 
+ *
  * @param options
  * @returns 현재 위치 + 주소 쿼리 결과
  */
-const useCurrentLocation = (options?: {
-  enabled?: boolean
-}) => {
+const useCurrentLocation = (options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: locationKeys.current(),
     queryFn: () => getCurrentLocation(),
@@ -31,22 +28,16 @@ const useCurrentLocation = (options?: {
   })
 }
 
-
 /**
  * 현재 위치를 자동으로 가져오고 상태를 관리하는 훅
- * 
+ *
  * @returns 위치 상태 및 함수
  */
 export const useAutoGeolocation = () => {
   const [hasPermission, setHasPermission] = useState(false)
   const [shouldFetch, setShouldFetch] = useState(false)
 
-  const {
-    data,
-    isLoading,
-    error,
-    refetch,
-  } = useCurrentLocation({
+  const { data, isLoading, error, refetch } = useCurrentLocation({
     enabled: shouldFetch,
   })
 

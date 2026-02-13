@@ -1,5 +1,10 @@
-import { ENV } from "@/shared"
-import { GEOLOCATION_ERROR_MESSAGES, GeolocationErrorCode, type Coordinates, type GeolocationOptions } from "../model/types"
+import { ENV } from '@/shared'
+import {
+  GEOLOCATION_ERROR_MESSAGES,
+  GeolocationErrorCode,
+  type Coordinates,
+  type GeolocationOptions,
+} from '../model/types'
 
 const GEO_BASE_URL = 'https://api.openweathermap.org/geo/1.0'
 
@@ -25,9 +30,7 @@ const buildGeoUrl = (endpoint: string, params: Record<string, string | number>):
  * @param options Geolocation 옵션
  * @returns Promise<Coordinates>
  */
-export const getCurrentPosition = (
-  options?: GeolocationOptions
-): Promise<Coordinates> => {
+export const getCurrentPosition = (options?: GeolocationOptions): Promise<Coordinates> => {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
       reject(new Error('이 브라우저는 위치 정보를 지원하지 않습니다.'))
@@ -53,7 +56,7 @@ export const getCurrentPosition = (
           '위치 정보를 가져올 수 없습니다.'
         reject(new Error(errorMessage))
       },
-      defaultOptions
+      defaultOptions,
     )
   })
 }
@@ -85,10 +88,7 @@ export const checkGeolocationPermission = async (): Promise<PermissionState> => 
  * @param lon
  * @returns Promise<string> 주소
  */
-export const reverseGeocode = async (
-  lat: number,
-  lon: number
-): Promise<string> => {
+export const reverseGeocode = async (lat: number, lon: number): Promise<string> => {
   try {
     const url = buildGeoUrl('reverse', { lat, lon })
     const response = await fetch(url)
@@ -130,9 +130,7 @@ const normalizeAddress = (address: string): string => {
  * @param address
  * @returns Promise<Coordinates> 좌표
  */
-export const geocodeAddress = async (
-  address: string
-): Promise<Coordinates> => {
+export const geocodeAddress = async (address: string): Promise<Coordinates> => {
   const fetchCoords = async (query: string): Promise<Coordinates | null> => {
     try {
       const url = buildGeoUrl('direct', { q: `${query},KR` })
@@ -164,7 +162,7 @@ export const geocodeAddress = async (
     }
 
     if (!coords && address.includes(' ')) {
-      const segments = address.split(' ').filter(s => s.trim().length > 0)
+      const segments = address.split(' ').filter((s) => s.trim().length > 0)
       if (segments.length > 1) {
         const lastSegment = segments[segments.length - 1]
         coords = await fetchCoords(lastSegment)

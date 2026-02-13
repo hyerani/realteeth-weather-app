@@ -12,12 +12,7 @@ interface EditNameModalProps {
 /**
  * 즐겨찾기 별칭 수정 모달
  */
-export const EditNameModal = ({
-  favoriteId,
-  currentName,
-  isOpen,
-  onClose,
-}: EditNameModalProps) => {
+export const EditNameModal = ({ favoriteId, currentName, isOpen, onClose }: EditNameModalProps) => {
   const { updateDisplayName } = useFavoriteStore()
   const [newName, setNewName] = useState(currentName)
 
@@ -25,7 +20,7 @@ export const EditNameModal = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!newName.trim()) {
       return
     }
@@ -41,10 +36,7 @@ export const EditNameModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={handleCancel}
-      />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleCancel} />
 
       <div className="relative bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
         <div className="flex items-center justify-between mb-4">
@@ -59,9 +51,7 @@ export const EditNameModal = ({
 
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              새 별칭
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">새 별칭</label>
             <input
               type="text"
               value={newName}
@@ -72,9 +62,7 @@ export const EditNameModal = ({
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg 
                        focus:border-blue-500 focus:outline-none transition-colors"
             />
-            <p className="text-xs text-gray-500 mt-1">
-              {newName.length}/20자
-            </p>
+            <p className="text-xs text-gray-500 mt-1">{newName.length}/20자</p>
           </div>
 
           <div className="flex gap-3">

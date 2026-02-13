@@ -25,7 +25,8 @@ export type GeolocationErrorCode = (typeof GeolocationErrorCode)[keyof typeof Ge
  * Geolocation API 에러 메시지
  */
 export const GEOLOCATION_ERROR_MESSAGES = {
-  [GeolocationErrorCode.PERMISSION_DENIED]: '위치 권한이 거부되었습니다. 브라우저 설정에서 위치 권한을 허용해주세요.',
+  [GeolocationErrorCode.PERMISSION_DENIED]:
+    '위치 권한이 거부되었습니다. 브라우저 설정에서 위치 권한을 허용해주세요.',
   [GeolocationErrorCode.POSITION_UNAVAILABLE]: '위치 정보를 사용할 수 없습니다.',
   [GeolocationErrorCode.TIMEOUT]: '위치 정보를 가져오는 시간이 초과되었습니다.',
 } as const
@@ -38,4 +39,3 @@ export interface GeolocationOptions {
   timeout?: number
   maximumAge?: number
 }
-

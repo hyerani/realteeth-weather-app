@@ -1,10 +1,5 @@
-
 import { geocodeAddress } from '@/entities/location'
-import type {
-  OneCallResponse,
-  WeatherData,
-  HourlyWeather,
-} from '../model/types'
+import type { OneCallResponse, WeatherData, HourlyWeather } from '../model/types'
 import { ENV } from '@/shared'
 
 /**
@@ -55,10 +50,7 @@ const handleResponse = async <T>(response: Response): Promise<T> => {
  * @param lon
  * @returns One Call 응답 데이터
  */
-const fetchOneCall = async (
-  lat: number,
-  lon: number
-): Promise<OneCallResponse> => {
+const fetchOneCall = async (lat: number, lon: number): Promise<OneCallResponse> => {
   const url = buildUrl({ lat, lon })
   const response = await fetch(url)
   return handleResponse<OneCallResponse>(response)
@@ -67,24 +59,19 @@ const fetchOneCall = async (
 /**
  * API 응답을 WeatherData 형식으로 변환
  */
-const mapOneCallToWeatherData = (
-  location: string,
-  data: OneCallResponse
-): WeatherData => {
-  const hourlyWeather: HourlyWeather[] = data.hourly
-    .slice(0, 24)
-    .map((item) => ({
-      time: item.dt,
-      timeText: new Date(item.dt * 1000).toLocaleTimeString('ko-KR', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }),
-      temp: Math.round(item.temp),
-      description: item.weather[0]?.description || '',
-      icon: item.weather[0]?.icon || '',
-      pop: Math.round(item.pop * 100),
-    }))
+const mapOneCallToWeatherData = (location: string, data: OneCallResponse): WeatherData => {
+  const hourlyWeather: HourlyWeather[] = data.hourly.slice(0, 24).map((item) => ({
+    time: item.dt,
+    timeText: new Date(item.dt * 1000).toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }),
+    temp: Math.round(item.temp),
+    description: item.weather[0]?.description || '',
+    icon: item.weather[0]?.icon || '',
+    pop: Math.round(item.pop * 100),
+  }))
 
   const today = data.daily[0]
 
@@ -117,10 +104,7 @@ const mapOneCallToWeatherData = (
  * @param lon
  * @returns 가공된 날씨 데이터
  */
-export const fetchWeatherData = async (
-  lat: number,
-  lon: number
-): Promise<WeatherData> => {
+export const fetchWeatherData = async (lat: number, lon: number): Promise<WeatherData> => {
   try {
     const data = await fetchOneCall(lat, lon)
     return mapOneCallToWeatherData(data.timezone, data)
@@ -138,9 +122,7 @@ export const fetchWeatherData = async (
  * @param address
  * @returns 가공된 날씨 데이터
  */
-export const fetchWeatherByAddress = async (
-  address: string
-): Promise<WeatherData> => {
+export const fetchWeatherByAddress = async (address: string): Promise<WeatherData> => {
   try {
     const coords = await geocodeAddress(address)
     const data = await fetchOneCall(coords.lat, coords.lon)
@@ -159,10 +141,7 @@ export const fetchWeatherByAddress = async (
  * @param size 아이콘 크기
  * @returns 아이콘 URL
  */
-export const getWeatherIconUrl = (
-  iconCode: string,
-  size: '1x' | '2x' | '4x' = '2x'
-): string => {
+export const getWeatherIconUrl = (iconCode: string, size: '1x' | '2x' | '4x' = '2x'): string => {
   const sizeMap = {
     '1x': '',
     '2x': '@2x',
