@@ -78,7 +78,7 @@ npm run build
 
 ### 에러 처리
 
-- Global Error Boundary로 예상치 못한 런타임 에러 시 앱 크래시(흰 화면) 방지
+- Global Error Boundary로 예상치 못한 런타임 에러 시 흰 화면 방지
 - 에러 발생 시 fallback UI 표시 (에러 메시지, 다시 시도, 홈으로 이동)
 - 위치 권한 거부, API 실패, 네트워크 에러 등 상황별 에러 UI 제공
 - React Query 기반 자동 재시도 (2회)
