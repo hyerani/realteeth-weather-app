@@ -18,7 +18,7 @@ export const locationKeys = {
  * @param options
  * @returns 현재 위치 + 주소 쿼리 결과
  */
-export const useCurrentLocation = (options?: {
+const useCurrentLocation = (options?: {
   enabled?: boolean
 }) => {
   return useQuery({

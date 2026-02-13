@@ -28,8 +28,7 @@ const normalizeQuery = (query: string): string => {
 /**
  * 매칭 점수 계산
  */
-const calculateMatchScore = (district: District, query: string): number => {
-  const normalizedQuery = normalizeQuery(query)
+const calculateMatchScore = (district: District, normalizedQuery: string): number => {
   const fullName = normalizeQuery(district.fullName)
   const name = normalizeQuery(district.name)
   const chosung = getChosung(district.fullName)
@@ -112,7 +111,7 @@ export const highlightText = (
 
   return [
     { text: text.slice(0, index), highlight: false },
-    { text: text.slice(index, index + query.length), highlight: true },
-    { text: text.slice(index + query.length), highlight: false },
+    { text: text.slice(index, index + normalizedQuery.length), highlight: true },
+    { text: text.slice(index + normalizedQuery.length), highlight: false },
   ].filter((part) => part.text.length > 0)
 }

@@ -1,7 +1,6 @@
 import { MapPin, Star } from 'lucide-react'
-import { useState } from 'react'
 import { highlightText, type District } from '@/entities/location'
-import { useFavoriteStore } from '@/entities/favorite'
+import { useFavoriteToggle } from '@/entities/favorite'
 import { cn } from '@/shared'
 
 
@@ -10,6 +9,18 @@ interface SearchResultCardProps {
   searchQuery: string
   onClick: () => void
 }
+
+const LEVEL_BADGE_COLORS = {
+  sido: 'bg-blue-100 text-blue-700',
+  sigungu: 'bg-green-100 text-green-700',
+  eupmyeondong: 'bg-purple-100 text-purple-700',
+} as const
+
+const LEVEL_LABELS = {
+  sido: '시/도',
+  sigungu: '시/군/구',
+  eupmyeondong: '읍/면/동',
+} as const
 
 /**
  * 검색 결과 카드 컴포넌트
@@ -20,54 +31,24 @@ export const SearchResultCard = ({
   onClick,
 }: SearchResultCardProps) => {
   const parts = highlightText(district.fullName, searchQuery)
-  const { addFavorite, removeFavorite, isFavorite, getFavoriteByAddress } = useFavoriteStore()
-  const [error, setError] = useState<string | null>(null)
-
-  const favorite = getFavoriteByAddress(district.fullName)
-  const isAdded = isFavorite(district.fullName)
-
-  const levelBadgeColors = {
-    sido: 'bg-blue-100 text-blue-700',
-    sigungu: 'bg-green-100 text-green-700',
-    eupmyeondong: 'bg-purple-100 text-purple-700',
-  }
-
-  const levelLabels = {
-    sido: '시/도',
-    sigungu: '시/군/구',
-    eupmyeondong: '읍/면/동',
-  }
+  const { isAdded, error, toggle } = useFavoriteToggle(district.fullName)
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation()
-
-    setError(null)
-
-    try {
-      if (isAdded && favorite) {
-        removeFavorite(favorite.id)
-      } else {
-        addFavorite(district.fullName)
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message)
-        setTimeout(() => setError(null), 3000)
-      }
-    }
+    toggle()
   }
 
   return (
     <div className="relative">
       <button
         onClick={onClick}
-        className="w-full text-left p-4 bg-white border border-gray-200 
-                   rounded-lg hover:border-blue-500 hover:shadow-md 
+        className="w-full text-left p-4 bg-white border border-gray-200
+                   rounded-lg hover:border-blue-500 hover:shadow-md
                    transition-all duration-200 group"
       >
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full 
-                          flex items-center justify-center group-hover:bg-blue-100 
+          <div className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full
+                          flex items-center justify-center group-hover:bg-blue-100
                           transition-colors">
             <MapPin className="w-5 h-5 text-blue-500" />
           </div>
@@ -88,10 +69,10 @@ export const SearchResultCard = ({
               <span
                 className={cn(
                   "px-2 py-0.5 rounded-full font-medium",
-                  levelBadgeColors[district.level],
+                  LEVEL_BADGE_COLORS[district.level],
                 )}
               >
-                {levelLabels[district.level]}
+                {LEVEL_LABELS[district.level]}
               </span>
             </div>
           </div>
@@ -117,8 +98,8 @@ export const SearchResultCard = ({
       </button>
 
       {error && (
-        <div className="absolute top-full left-0 right-0 mt-2 p-3 
-                        bg-red-50 border border-red-200 rounded-lg 
+        <div className="absolute top-full left-0 right-0 mt-2 p-3
+                        bg-red-50 border border-red-200 rounded-lg
                         text-sm text-red-600 z-10 shadow-lg">
           {error}
         </div>

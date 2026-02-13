@@ -1,6 +1,5 @@
 import { Star } from 'lucide-react'
-import { useFavoriteStore } from '@/entities/favorite'
-import { useState } from 'react'
+import { useFavoriteToggle } from '@/entities/favorite'
 import { cn } from '@/shared'
 
 
@@ -18,40 +17,14 @@ export const AddFavoriteButton = ({
   onSuccess,
   size = 'default',
 }: AddFavoriteButtonProps) => {
-  const { addFavorite, removeFavorite, isFavorite, getFavoriteByAddress } = useFavoriteStore()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  const favorite = getFavoriteByAddress(address)
-  const isAdded = isFavorite(address)
-
-  const handleToggle = async () => {
-    setIsLoading(true)
-    setError(null)
-
-    try {
-      if (isAdded && favorite) {
-        removeFavorite(favorite.id)
-      } else {
-        addFavorite(address)
-      }
-      onSuccess?.()
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message)
-        setTimeout(() => setError(null), 3000)
-      }
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  const { isAdded, isLoading, error, toggle } = useFavoriteToggle(address)
 
   const isSmall = size === 'sm'
 
   return (
     <div className="relative">
       <button
-        onClick={handleToggle}
+        onClick={() => toggle(onSuccess)}
         disabled={isLoading}
         className={cn(
           "flex items-center rounded-lg font-medium transition-all duration-200",

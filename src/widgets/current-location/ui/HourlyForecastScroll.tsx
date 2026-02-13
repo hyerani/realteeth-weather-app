@@ -1,5 +1,5 @@
 import { useRef, useState, type MouseEvent } from 'react'
-import { getWeatherIconUrl, type HourlyWeather } from '@/entities/weather'
+import { getWeatherIconUrl, isTomorrowMidnight, type HourlyWeather } from '@/entities/weather'
 import { cn } from '@/shared'
 
 interface HourlyForecastScrollProps {
@@ -53,14 +53,11 @@ export const HourlyForecastScroll = ({ hourly, timestamp }: HourlyForecastScroll
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
       {hourly.map((hour) => {
-        const isMidnight = new Date(hour.time * 1000).getHours() === 0
-        const isTomorrow =
-          new Date(hour.time * 1000).getDate() !==
-          new Date(timestamp * 1000).getDate()
+        const showTomorrowLabel = isTomorrowMidnight(hour.time, timestamp)
 
         return (
           <div key={hour.time} className="relative pt-3 flex-shrink-0 w-[18%] min-w-[70px]">
-            {isMidnight && isTomorrow && (
+            {showTomorrowLabel && (
               <span className="absolute top-0 left-1/2 -translate-x-1/2 text-[10px] bg-white/20 px-1.5 rounded-full text-white font-medium whitespace-nowrap z-10 border border-white/10 shadow-sm">
                 내일
               </span>

@@ -55,7 +55,7 @@ const handleResponse = async <T>(response: Response): Promise<T> => {
  * @param lon
  * @returns 현재 날씨 데이터
  */
-export const fetchCurrentWeather = async (
+const fetchCurrentWeather = async (
   lat: number,
   lon: number
 ): Promise<CurrentWeatherResponse> => {
@@ -70,7 +70,7 @@ export const fetchCurrentWeather = async (
  * @param lon
  * @returns 시간대별 예보 데이터
  */
-export const fetchHourlyForecast = async (
+const fetchHourlyForecast = async (
   lat: number,
   lon: number
 ): Promise<HourlyForecastResponse> => {

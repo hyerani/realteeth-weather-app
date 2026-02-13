@@ -1,6 +1,6 @@
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { getWeatherIconUrl, useWeatherByAddress } from '@/entities/weather'
+import { getWeatherIconUrl, isTomorrowMidnight, useWeatherByAddress } from '@/entities/weather'
 import { AddFavoriteButton } from '@/features/add-favorite'
 
 
@@ -132,17 +132,14 @@ export const WeatherDetailPage = () => {
           </h2>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
             {weather.hourly.map((hour) => {
-              const isMidnight = new Date(hour.time * 1000).getHours() === 0
-              const isTomorrow =
-                new Date(hour.time * 1000).getDate() !==
-                new Date(weather.timestamp * 1000).getDate()
+              const showTomorrowLabel = isTomorrowMidnight(hour.time, weather.timestamp)
 
               return (
                 <div
                   key={hour.time}
                   className="text-center p-3 bg-gray-50 rounded-lg relative"
                 >
-                  {isMidnight && isTomorrow && (
+                  {showTomorrowLabel && (
                     <span className="absolute top-0.5 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 font-medium pt-1">
                       내일
                     </span>

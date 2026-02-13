@@ -3,6 +3,8 @@ export type {
   SearchResult,
 } from './model/districtTypes'
 
+export type { Coordinates } from './model/types'
+
 export {
   geocodeAddress,
 } from './api/geolocationApi'

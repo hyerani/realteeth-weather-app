@@ -12,3 +12,5 @@ export {
   useWeatherData,
   useWeatherByAddress
 } from './model/useWeatherQuery'
+
+export { isTomorrowMidnight } from './lib/isTomorrowMidnight'

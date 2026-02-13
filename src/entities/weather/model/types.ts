@@ -1,10 +1,6 @@
-/**
- * 좌표 정보
- */
-export interface Coordinates {
-  lat: number
-  lon: number
-}
+import type { Coordinates } from '@/entities/location'
+
+export type { Coordinates }
 
 /**
  * 날씨 상태 정보
