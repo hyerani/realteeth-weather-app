@@ -1,19 +1,8 @@
 # Weather App
 
-OpenWeatherMap API를 활용한 날씨 정보 조회 웹 애플리케이션입니다.
+OpenWeatherMap API를 활용한 날씨 정보 조회 웹 애플리케이션입니다.  
 현재 위치 기반 날씨 확인, 지역 검색, 즐겨찾기 관리 기능을 제공합니다.
 
-## 기술 스택
-
-| 분류             | 기술                                           |
-| ---------------- | ---------------------------------------------- |
-| Framework        | React 19, TypeScript                           |
-| Build Tool       | Vite 7                                         |
-| Styling          | Tailwind CSS 4                                 |
-| State Management | Zustand, TanStack React Query                  |
-| Routing          | React Router DOM 7                             |
-| Icons            | Lucide React                                   |
-| API              | OpenWeatherMap One Call API 3.0, Geocoding API |
 
 ## 프로젝트 실행 방법
 
@@ -122,3 +111,17 @@ OpenWeatherMap의 One Call API 3.0을 선택한 이유:
 - 초성 추출 기반 검색으로 빠른 입력 지원
 - 매칭 점수 시스템(정확 일치 > 시작 일치 > 포함 일치 > 초성 일치)으로 관련도 높은 결과를 상위에 노출
 - 지오코딩 시 주소 정규화 및 다단계 폴백 전략(전체 주소 → 정규화 → 마지막 세그먼트)으로 좌표 변환 성공률 향상
+
+
+
+## 기술 스택
+
+| 분류             | 기술                                           |
+| ---------------- | ---------------------------------------------- |
+| Framework        | React 19, TypeScript                           |
+| Build Tool       | Vite 7                                         |
+| Styling          | Tailwind CSS 4                                 |
+| State Management | Zustand, TanStack React Query                  |
+| Routing          | React Router DOM                               |
+| Icons            | Lucide React                                   |
+| API              | OpenWeatherMap One Call API 3.0, Geocoding API |
