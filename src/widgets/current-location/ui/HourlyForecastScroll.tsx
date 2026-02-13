@@ -1,3 +1,4 @@
+import { Umbrella } from 'lucide-react'
 import { getWeatherIconUrl, isTomorrowMidnight, type HourlyWeather } from '@/entities/weather'
 import { cn, useDragScroll } from '@/shared'
 
@@ -40,6 +41,10 @@ export const HourlyForecastScroll = ({ hourly, timestamp }: HourlyForecastScroll
                 className="w-6 h-6 sm:w-8 sm:h-8 mx-auto my-0.5 sm:my-1 pointer-events-none"
               />
               <p className="text-xs sm:text-sm font-semibold truncate">{hour.temp}°</p>
+              <p className="text-[10px] sm:text-xs opacity-70 mt-0.5 flex items-center justify-center gap-0.5">
+                <Umbrella className="w-3 h-3" />
+                {hour.pop}%
+              </p>
             </div>
           </div>
         )

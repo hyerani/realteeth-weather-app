@@ -83,7 +83,7 @@ const mapOneCallToWeatherData = (
       temp: Math.round(item.temp),
       description: item.weather[0]?.description || '',
       icon: item.weather[0]?.icon || '',
-      pop: item.pop ? Math.round(item.pop * 100) : undefined,
+      pop: Math.round(item.pop * 100),
     }))
 
   const today = data.daily[0]
@@ -100,6 +100,7 @@ const mapOneCallToWeatherData = (
       tempMin: Math.round(today.temp.min),
       tempMax: Math.round(today.temp.max),
       humidity: data.current.humidity,
+      pop: Math.round(today.pop * 100),
       description: data.current.weather[0]?.description || '',
       icon: data.current.weather[0]?.icon || '',
       sunrise: data.current.sunrise,

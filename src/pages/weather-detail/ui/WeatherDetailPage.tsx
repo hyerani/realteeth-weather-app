@@ -1,5 +1,5 @@
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Umbrella } from 'lucide-react'
 import { getWeatherIconUrl, isTomorrowMidnight, useWeatherByAddress } from '@/entities/weather'
 import { AddFavoriteButton } from '@/features/add-favorite'
 import { useDragScroll } from '@/shared'
@@ -112,7 +112,7 @@ export const WeatherDetailPage = () => {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
+          <div className="grid grid-cols-4 gap-4 pt-6 border-t border-white/20">
             <div>
               <p className="text-sm opacity-80 mb-1">최저 기온</p>
               <p className="text-2xl font-semibold">{weather.current.tempMin}°</p>
@@ -124,6 +124,10 @@ export const WeatherDetailPage = () => {
             <div>
               <p className="text-sm opacity-80 mb-1">습도</p>
               <p className="text-2xl font-semibold">{weather.current.humidity}%</p>
+            </div>
+            <div>
+              <p className="text-sm opacity-80 mb-1">강수확률</p>
+              <p className="text-2xl font-semibold">{weather.current.pop}%</p>
             </div>
           </div>
         </div>
@@ -158,9 +162,10 @@ export const WeatherDetailPage = () => {
                     className="w-12 h-12 mx-auto mb-2"
                   />
                   <p className="font-semibold text-gray-900">{hour.temp}°</p>
-                  {hour.pop !== undefined && hour.pop > 0 && (
-                    <p className="text-xs text-blue-500 mt-1">{hour.pop}%</p>
-                  )}
+                  <p className="text-xs text-gray-500 mt-1 flex items-center justify-center gap-0.5">
+                    <Umbrella className="w-3 h-3" />
+                    {hour.pop}%
+                  </p>
                 </div>
               )
             })}

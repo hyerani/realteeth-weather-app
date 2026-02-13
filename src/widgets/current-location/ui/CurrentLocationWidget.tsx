@@ -103,7 +103,7 @@ export const CurrentLocationWidget = () => {
             <div className="h-6 bg-white/20 rounded w-24" />
           </div>
           <div className="pt-4 border-t border-white/20">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               <div>
                 <div className="h-4 bg-white/20 rounded w-14 mb-2" />
                 <div className="h-7 bg-white/20 rounded w-16" />
@@ -114,6 +114,10 @@ export const CurrentLocationWidget = () => {
               </div>
               <div>
                 <div className="h-4 bg-white/20 rounded w-10 mb-2" />
+                <div className="h-7 bg-white/20 rounded w-14" />
+              </div>
+              <div>
+                <div className="h-4 bg-white/20 rounded w-14 mb-2" />
                 <div className="h-7 bg-white/20 rounded w-14" />
               </div>
             </div>
@@ -163,7 +167,7 @@ export const CurrentLocationWidget = () => {
           </div>
 
           <div
-            className="animate-fade-slide-up grid grid-cols-3 gap-4 pt-4 border-t border-white/20 delay-160"
+            className="animate-fade-slide-up grid grid-cols-4 gap-4 pt-4 border-t border-white/20 delay-160"
           >
             <div>
               <p className="text-sm opacity-80 mb-1">최저 기온</p>
@@ -176,6 +180,10 @@ export const CurrentLocationWidget = () => {
             <div>
               <p className="text-sm opacity-80 mb-1">습도</p>
               <p className="text-2xl font-semibold">{weather.current.humidity}%</p>
+            </div>
+            <div>
+              <p className="text-sm opacity-80 mb-1">강수확률</p>
+              <p className="text-2xl font-semibold">{weather.current.pop}%</p>
             </div>
           </div>
 

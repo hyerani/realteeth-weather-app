@@ -59,8 +59,6 @@ export interface OneCallHourlyItem {
   wind_gust?: number
   weather: WeatherCondition[]
   pop: number
-  rain?: { '1h'?: number }
-  snow?: { '1h'?: number }
 }
 
 /**
@@ -89,8 +87,6 @@ export interface OneCallDailyItem {
   weather: WeatherCondition[]
   clouds: number
   pop: number
-  rain?: number
-  snow?: number
   uvi: number
 }
 
@@ -106,6 +102,7 @@ export interface WeatherData {
     tempMin: number
     tempMax: number
     humidity: number
+    pop: number
     description: string
     icon: string
     sunrise: number
@@ -124,5 +121,5 @@ export interface HourlyWeather {
   temp: number
   description: string
   icon: string
-  pop?: number
+  pop: number
 }
